@@ -1,0 +1,12 @@
+# Java build files
+target/
+*.class
+
+# Flutter generated files
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+
+# Android generated files
+.gradle/

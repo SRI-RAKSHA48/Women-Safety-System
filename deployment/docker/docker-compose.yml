@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: womensafety
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
+  mongodb:
+    image: mongo:8
+    ports:
+      - "27017:27017"
+
+  backend:
+    build:
+      context: ../../backend
+      dockerfile: ../deployment/docker/backend.Dockerfile
+    environment:
+      PROTOTYPE_MODE: "true"
+      POSTGRES_URL: jdbc:postgresql://postgres:5432/womensafety
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      MONGODB_URI: mongodb://mongodb:27017/womensafety
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - mongodb
